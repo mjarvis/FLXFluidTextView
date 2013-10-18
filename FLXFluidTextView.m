@@ -26,6 +26,12 @@
 
 NSString * const FLXFluidTextViewFrameDidChangeNotification = @"FLXFluidTextViewFrameDidChangeNotification";
 
+@interface FLXFluidTextView ()
+
+@property (nonatomic, strong) NSLayoutConstraint *heightConstraint;
+
+@end
+
 @implementation FLXFluidTextView
 
 CG_INLINE CGFloat padding(UITextView *textView)
@@ -33,6 +39,23 @@ CG_INLINE CGFloat padding(UITextView *textView)
     return ([textView respondsToSelector:@selector(textContainerInset)]) ?
         textView.textContainerInset.top + textView.textContainerInset.bottom :
               textView.contentInset.top + textView.contentInset.bottom;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        self.heightConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                             attribute:NSLayoutAttributeHeight
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:nil
+                                                             attribute:NSLayoutAttributeNotAnAttribute
+                                                            multiplier:1.0
+                                                              constant:0.0];
+        [self addConstraint:self.heightConstraint];
+    }
+    return self;
 }
 
 - (void)setMaximumNumberOfLines:(NSUInteger)maximumNumberOfLines
@@ -61,10 +84,7 @@ CG_INLINE CGFloat padding(UITextView *textView)
 {
     [super setContentSize:contentSize];
 
-    CGRect frame = self.frame;
-    frame.size.height = MAX(self.minimumHeight, MIN(self.contentSize.height, self.maximumHeight));
-
-    self.frame = frame;
+    self.heightConstraint.constant = MAX(self.minimumHeight, MIN(self.contentSize.height, self.maximumHeight));
 
     [[NSNotificationCenter defaultCenter] postNotificationName:FLXFluidTextViewFrameDidChangeNotification
                                                         object:self];
