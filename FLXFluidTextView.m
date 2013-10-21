@@ -24,7 +24,7 @@
 
 #import "FLXFluidTextView.h"
 
-NSString * const FLXFluidTextViewFrameDidChangeNotification = @"FLXFluidTextViewFrameDidChangeNotification";
+NSString * const FLXFluidTextViewHeightConstraintDidChangeNotification = @"FLXFluidTextViewHeightConstraintDidChangeNotification";
 
 @interface FLXFluidTextView ()
 
@@ -86,7 +86,7 @@ CG_INLINE CGFloat padding(UITextView *textView)
 
     self.heightConstraint.constant = MAX(self.minimumHeight, MIN(self.contentSize.height, self.maximumHeight));
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:FLXFluidTextViewFrameDidChangeNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName:FLXFluidTextViewHeightConstraintDidChangeNotification
                                                         object:self];
 
     if (self.frame.size.height < self.contentSize.height

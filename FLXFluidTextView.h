@@ -24,7 +24,7 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString * const FLXFluidTextViewFrameDidChangeNotification;
+extern NSString * const FLXFluidTextViewHeightConstraintDidChangeNotification;
 
 @interface FLXFluidTextView : UITextView
 
@@ -33,5 +33,7 @@ extern NSString * const FLXFluidTextViewFrameDidChangeNotification;
 
 @property (nonatomic, assign) NSUInteger maximumHeight;
 @property (nonatomic, assign) NSUInteger minimumHeight;
+
+@property (nonatomic, readonly) NSLayoutConstraint *heightConstraint;
 
 @end
