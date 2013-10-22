@@ -84,7 +84,7 @@ CG_INLINE CGFloat padding(UITextView *textView)
 {
     [super setContentSize:contentSize];
 
-    self.heightConstraint.constant = MAX(self.minimumHeight, MIN(self.contentSize.height, self.maximumHeight));
+    self.heightConstraint.constant = MAX(self.minimumHeight, MIN(self.contentSize.height + padding(self), self.maximumHeight));
 
     [[NSNotificationCenter defaultCenter] postNotificationName:FLXFluidTextViewHeightConstraintDidChangeNotification
                                                         object:self];
