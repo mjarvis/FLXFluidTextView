@@ -65,7 +65,7 @@ CG_INLINE CGFloat padding(UITextView *textView)
     _maximumNumberOfLines = maximumNumberOfLines;
 
     CGFloat maximumHeight = [self.font lineHeight] * maximumNumberOfLines + padding(self);
-    self.maximumHeight = maximumHeight;
+    self.maximumHeight = ceilf(maximumHeight) + padding(self);
 }
 
 - (void)setMinimumNumberOfLines:(NSUInteger)minimumNumberOfLines
@@ -75,7 +75,7 @@ CG_INLINE CGFloat padding(UITextView *textView)
     _minimumNumberOfLines = minimumNumberOfLines;
 
     CGFloat minimumHeight = [self.font lineHeight] * minimumNumberOfLines + padding(self);
-    self.minimumHeight = minimumHeight;
+    self.minimumHeight = ceilf(minimumHeight) + padding(self);
 }
 
 #pragma mark - UIScrollView -
